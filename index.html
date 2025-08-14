@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hassam Khan | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            /* Excel and Microsoft Office color palette */
+            --excel-green: #217346;
+            --excel-light-green: #70AD47;
+            --excel-pale-green: #E2F0D9;
+            --excel-blue: #4472C4;
+            --excel-light-blue: #5B9BD5;
+            --excel-orange: #FFC000;
+            --excel-red: #FF5252;
+            --excel-purple: #8064A2;
+            --excel-white: #FFFFFF;
+            --excel-gray: #D9D9D9;
+            --excel-dark-gray: #1F1F1F;
+            --excel-light-gray: #F2F2F2;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><line x1="12" y1="0" x2="12" y2="24" stroke="%23217346" stroke-width="2"/><line x1="0" y1="12" x2="24" y2="12" stroke="%23217346" stroke-width="2"/></svg>') 12 12, auto;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--excel-light-gray);
+            color: var(--excel-dark-gray);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Excel grid background with animation */
+        .excel-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(to right, var(--excel-gray) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--excel-gray) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
+            opacity: 0.3;
+            animation: grid-move 20s linear infinite;
+        }
+        
+        @keyframes grid-move {
+            0% { background-position: 0 0; }
+            100% { background-position: 30px 30px; }
+        }
+        
+        /* Loading screen */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--excel-white);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+        
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loader-icon {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .loader-icon i {
+            font-size: 80px;
+            color: var(--excel-green);
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .loader-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--excel-green);
+            letter-spacing: 1px;
+        }
+        
+        /* Header with Excel ribbon style */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(33, 115, 70, 0.95);
+            backdrop-filter: blur(10px);
+            color: var(--excel-white);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .header.hidden {
+            transform: translateY(-100%);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+            color: var(--excel-orange);
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .nav-tab {
+            padding: 10px 18px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: left 0.3s ease;
+        }
+        
+        .nav-tab:hover::before {
+            left: 0;
+        }
+        
+        .nav-tab:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Hero section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+        
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+        
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--excel-dark-gray);
+            line-height: 1.1;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .hero-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--excel-green), var(--excel-light-green));
+            border-radius: 5px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--excel-dark-gray);
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.3s forwards;
+        }
+        
+        .hero-description {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            color: var(--excel-dark-gray);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.6s forwards;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.9s forwards;
+        }
+        
+        .cta-button {
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .cta-primary {
+            background: linear-gradient(90deg, var(--excel-green), var(--excel-light-green));
+            color: white;
+            box-shadow: 0 4px 15px rgba(33, 115, 70, 0.3);
+        }
+        
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(33, 115, 70, 0.4);
+        }
+        
+        .cta-secondary {
+            background-color: white;
+            color: var(--excel-green);
+            border: 2px solid var(--excel-green);
+        }
+        
+        .cta-secondary:hover {
+            background-color: var(--excel-green);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        /* Floating elements */
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .floating-1 {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 5%;
+            background: linear-gradient(135deg, var(--excel-pale-green), var(--excel-light-green));
+            opacity: 0.6;
+            animation: float 8s infinite ease-in-out;
+        }
+        
+        .floating-2 {
+            width: 150px;
+            height: 150px;
+            bottom: 15%;
+            right: 10%;
+            background: linear-gradient(135deg, var(--excel-light-blue), var(--excel-blue));
+            opacity: 0.6;
+            animation: float 10s infinite ease-in-out;
+        }
+        
+        .floating-3 {
+            width: 100px;
+            height: 100px;
+            top: 30%;
+            right: 15%;
+            background: linear-gradient(135deg, var(--excel-orange), var(--excel-red));
+            opacity: 0.6;
+            animation: float 7s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        /* Section styling */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--excel-dark-gray);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--excel-green), var(--excel-light-green));
+            border-radius: 4px;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--excel-dark-gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* About section */
+        .about-content {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-image {
+            flex: 1;
+            position: relative;
+        }
+        
+        .about-img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+            transition: transform 0.5s ease;
+        }
+        
+        .about-img:hover {
+            transform: scale(1.03);
+        }
+        
+        .about-bg {
+            position: absolute;
+            width: 100%;
+            max-width: 400px;
+            height: 100%;
+            background: linear-gradient(135deg, var(--excel-pale-green), var(--excel-light-green));
+            border-radius: 20px;
+            top: 20px;
+            left: 20px;
+            z-index: 1;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-description {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: var(--excel-dark-gray);
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .info-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--excel-pale-green), var(--excel-light-green));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--excel-green);
+        }
+        
+        .info-text h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--excel-dark-gray);
+        }
+        
+        .info-text p {
+            font-size: 0.9rem;
+            color: var(--excel-dark-gray);
+            opacity: 0.8;
+        }
+        
+        /* Timeline for experience */
+        .timeline {
+            position: relative;
+            margin: 50px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--excel-green), var(--excel-light-green));
+            border-radius: 4px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+            width: 50%;
+            padding: 0 30px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, var(--excel-green), var(--excel-light-green));
+            border-radius: 50%;
+            top: 0;
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px var(--excel-pale-green);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -10px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            background-color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        .timeline-date {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--excel-green);
+            margin-bottom: 10px;
+        }
+        
+        .timeline-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--excel-dark-gray);
+        }
+        
+        .timeline-company {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: var(--excel-blue);
+        }
+        
+        .timeline-description {
+            font-size: 1rem;
+            color: var(--excel-dark-gray);
+            opacity: 0.9;
+        }
+        
+        /* Skills section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .skill-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .skill-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+        
+        .skill-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .skill-icon.accounting {
+            background: linear-gradient(135deg, var(--excel-pale-green), var(--excel-light-green));
+            color: var(--excel-green);
+        }
+        
+        .skill-icon.technical {
+            background: linear-gradient(135deg, #D9E1F2, var(--excel-light-blue));
+            color: var(--excel-blue);
+        }
+        
+        .skill-icon.soft {
+            background: linear-gradient(135deg, #FBE5D6, var(--excel-orange));
+            color: var(--excel-orange);
+        }
+        
+        .skill-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--excel-dark-gray);
+        }
+        
+        .skill-list {
+            list-style-type: none;
+        }
+        
+        .skill-list li {
+            padding: 8px 0;
+            border-bottom: 1px dashed var(--excel-gray);
+            font-size: 1rem;
+            color: var(--excel-dark-gray);
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .skill-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .skill-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--excel-green);
+            font-weight: bold;
+        }
+        
+        /* Contact section */
+        .contact-container {
+            display: flex;
+            gap: 50px;
+            align-items: stretch;
+        }
+        
+        .contact-form {
+            flex: 1;
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--excel-dark-gray);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--excel-gray);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background-color: var(--excel-light-gray);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--excel-green);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .btn-submit {
+            padding: 15px 40px;
+            background: linear-gradient(90deg, var(--excel-green), var(--excel-light-green));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(33, 115, 70, 0.3);
+        }
+        
+        .btn-submit:hover {
+            background: linear-gradient(90deg, var(--excel-light-green), var(--excel-green));
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(33, 115, 70, 0.4);
+        }
+        
+        .contact-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .contact-item {
+            background-color: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .contact-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+        
+        .contact-icon.phone {
+            background: linear-gradient(135deg, var(--excel-pale-green), var(--excel-light-green));
+            color: var(--excel-green);
+        }
+        
+        .contact-icon.email {
+            background: linear-gradient(135deg, #D9E1F2, var(--excel-light-blue));
+            color: var(--excel-blue);
+        }
+        
+        .contact-icon.location {
+            background: linear-gradient(135deg, #FBE5D6, var(--excel-orange));
+            color: var(--excel-orange);
+        }
+        
+        .contact-text h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--excel-dark-gray);
+        }
+        
+        .contact-text p {
+            font-size: 1.1rem;
+            color: var(--excel-dark-gray);
+            opacity: 0.9;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--excel-dark-gray);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer-bottom {
+            font-size: 1rem;
+            opacity: 0.8;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 0;
+                text-align: left;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-dot {
+                left: 20px !important;
+            }
+            
+            .contact-container {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .nav-tabs {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .timeline-content {
+                padding: 20px;
+            }
+            
+            .contact-form, .contact-item {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="loader-icon">
+            <i class="fas fa-file-excel"></i>
+        </div>
+        <div class="loader-text">Loading Portfolio...</div>
+    </div>
+    
+    <!-- Excel Grid Background -->
+    <div class="excel-grid"></div>
+    
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="logo">
+            <i class="fas fa-file-excel"></i>
+            <span>PORTFOLIO</span>
+        </div>
+        <div class="nav-tabs">
+            <div class="nav-tab" onclick="scrollToSection('hero')">Home</div>
+            <div class="nav-tab" onclick="scrollToSection('about')">About</div>
+            <div class="nav-tab" onclick="scrollToSection('experience')">Experience</div>
+            <div class="nav-tab" onclick="scrollToSection('skills')">Skills</div>
+            <div class="nav-tab" onclick="scrollToSection('contact')">Contact</div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="floating-element floating-1"></div>
+        <div class="floating-element floating-2"></div>
+        <div class="floating-element floating-3"></div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title">HASSAM KHAN</h1>
+            <p class="hero-subtitle">Accounting & Finance Professional</p>
+            <p class="hero-description">BBA (Hons) in Accounting and Finance | The Hong Kong Polytechnic University</p>
+            <div class="cta-buttons">
+                <a href="#about" class="cta-button cta-primary">About Me</a>
+                <a href="#contact" class="cta-button cta-secondary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-header fade-in-up">
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">Learn more about my background, education, and what drives me in the field of accounting and finance.</p>
+            </div>
+            
+            <div class="about-content fade-in-up">
+                <div class="about-image">
+                    <div class="about-bg"></div>
+                    <img src="https://i.imgur.com/1Z9QZ0l.jpeg" alt="Hassam Khan" class="about-img">
+                </div>
+                
+                <div class="about-text">
+                    <p class="about-description">
+                        I am a dedicated and ambitious accounting and finance student at The Hong Kong Polytechnic University with a strong academic record and practical experience in audit, taxation, and transfer pricing. My goal is to leverage my analytical skills and financial knowledge to contribute to the success of a dynamic organization.
+                    </p>
+                    
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="info-text">
+                                <h4>Education</h4>
+                                <p>BBA (Hons) in Accounting and Finance</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="info-text">
+                                <h4>Achievements</h4>
+                                <p>Dean List 2023/24, CGPA: 4.06/4.3</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="info-text">
+                                <h4>Experience</h4>
+                                <p>Tax Intern at EY, Audit Trainee at Normsun Co.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="info-text">
+                                <h4>Location</h4>
+                                <p>15th Fat Kwong Street, Kowloon</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Experience Section -->
+    <section class="section" id="experience">
+        <div class="container">
+            <div class="section-header fade-in-up">
+                <h2 class="section-title">Experience</h2>
+                <p class="section-subtitle">My professional journey and the roles that have shaped my career in accounting and finance.</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">June 2025 – Present</div>
+                        <h3 class="timeline-title">Tax Intern (Transfer Pricing)</h3>
+                        <h4 class="timeline-company">Ernst Young (EY), Hong Kong</h4>
+                        <p class="timeline-description">
+                            Conducted detailed functional analyses and gained exposure to intercompany transactions during audit and tax review procedures. Assisted in preparing client schedules and working papers, contributing to accurate financial modelling and tax documentation.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">May 2024 – August 2024</div>
+                        <h3 class="timeline-title">Audit & Taxation Trainee</h3>
+                        <h4 class="timeline-company">Normsun Co. (Certified Public Accountants (Practising)), Hong Kong</h4>
+                        <p class="timeline-description">
+                            Conducted comprehensive audits for companies, under Hong Kong Financial Reporting Standards (HKFRS) and Hong Kong Accounting Standards. Developed and prepared comprehensive audit working papers in Excel, handling datasets with over 10,000 data points.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">August 2024 - Present</div>
+                        <h3 class="timeline-title">Internal Vice-President</h3>
+                        <h4 class="timeline-company">Business Club, The Hong Kong Polytechnic University, Hong Kong</h4>
+                        <p class="timeline-description">
+                            Leading event management initiatives within the University Business Club, overseeing the end-to-end planning, coordination, and execution of various high-impact events, ensuring smooth operations and positive attendee experiences.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2024</div>
+                        <h3 class="timeline-title">Investment Banking Virtual Internship</h3>
+                        <h4 class="timeline-company">JP Morgan Chase</h4>
+                        <p class="timeline-description">
+                            Identified an ideal M&A target for a client based on assessing their strategic and financial criteria. Constructed a DCF model to calculate the valuation of the M&A target and adjusted the model to account for a competitor bid and supply chain interruption.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section class="section" id="skills">
+        <div class="container">
+            <div class="section-header fade-in-up">
+                <h2 class="section-title">Skills & Expertise</h2>
+                <p class="section-subtitle">My technical skills and knowledge areas in accounting, finance, and related fields.</p>
+            </div>
+            
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon accounting">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 class="skill-title">Accounting & Finance</h3>
+                    <ul class="skill-list">
+                        <li>Financial Reporting</li>
+                        <li>Taxation</li>
+                        <li>Auditing</li>
+                        <li>Transfer Pricing</li>
+                        <li>Financial Analysis</li>
+                        <li>Management Accounting</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="skill-icon technical">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="skill-title">Technical Skills</h3>
+                    <ul class="skill-list">
+                        <li>Microsoft Office (Proficient)</li>
+                        <li>Financial Modeling</li>
+                        <li>Data Analysis</li>
+                        <li>Audit Software</li>
+                        <li>Excel Advanced Functions</li>
+                        <li>DCF Modeling</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="skill-icon soft">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 class="skill-title">Soft Skills</h3>
+                    <ul class="skill-list">
+                        <li>Leadership</li>
+                        <li>Teamwork</li>
+                        <li>Communication</li>
+                        <li>Problem Solving</li>
+                        <li>Time Management</li>
+                        <li>Attention to Detail</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="section-header fade-in-up">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">Feel free to contact me for any inquiries or opportunities.</p>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-form fade-in-up">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-submit">Send Message</button>
+                    </form>
+                </div>
+                
+                <div class="contact-info">
+                    <div class="contact-item fade-in-up">
+                        <div class="contact-icon phone">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Phone</h3>
+                            <p>+852 6313 4731</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item fade-in-up">
+                        <div class="contact-icon email">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Email</h3>
+                            <p>hassamjakhrani1235@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item fade-in-up">
+                        <div class="contact-icon location">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Location</h3>
+                            <p>15th Fat Kwong Street, Kowloon</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 Hassam Khan. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Hide loader when page is fully loaded
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1000);
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('hidden');
+            } else {
+                header.classList.remove('hidden');
+            }
+        });
+        
+        // Smooth scrolling for navigation links
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Animate elements on scroll
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all elements with fade-in-up class
+        document.querySelectorAll('.fade-in-up').forEach(element => {
+            observer.observe(element);
+        });
+        
+        // Observe timeline items
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            observer.observe(item);
+        });
+        
+        // Observe skill cards
+        document.querySelectorAll('.skill-card').forEach(card => {
+            observer.observe(card);
+        });
+        
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // Here you would typically send the form data to a server
+            // For this example, we'll just show a success message
+            alert('Thank you for your message, ' + name + '! I will get back to you soon.');
+            
+            // Reset form
+            this.reset();
+        });
+        
+        // Add parallax effect to floating elements
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY;
+            
+            document.querySelectorAll('.floating-element').forEach((element, index) => {
+                const speed = 0.5 + (index * 0.1);
+                element.style.transform = `translateY(${scrollPosition * speed}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
